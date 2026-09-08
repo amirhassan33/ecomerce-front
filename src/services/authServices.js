@@ -9,7 +9,6 @@ export const getProfileService = async () => {
         const response = await axios.get(`${API_URL}/profile`)
         return response.data
     } catch (error) {
-        console.log(error)
         throw new Error('Error al obtener el perfil')
     }
 }
@@ -48,7 +47,6 @@ export const registerService = async (
             headers: { 'Content-Type': 'application/json' },
             withCredentials: true,
         })
-        console.log('RESPUESTA', response)
         if (response.status === 201 || response.status === 200) {
             await checkSession()
             reset()

@@ -38,7 +38,10 @@ const DashboardLayout = () => {
                     </ul>
                 </div>
                 <div className="md:mx-auto hidden md:inline-flex md:gap-4 ">
-                    <Link className='btn btn-primary to="/admin/dashboard/products'>
+                    <Link
+                        className="btn btn-primary"
+                        to="/admin/dashboard/products"
+                    >
                         Productos
                     </Link>
                 </div>
