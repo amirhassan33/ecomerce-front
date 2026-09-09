@@ -3,8 +3,10 @@ import { FaMinus, FaPlus } from 'react-icons/fa'
 import { useCart } from '../../context/CartContext'
 import { useUser } from '../../context/UserContext'
 import { Link } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 const ModalCart = () => {
+    const { userInfo } = useUser()
     const {
         cart,
         closeModal,
@@ -162,10 +164,24 @@ const ModalCart = () => {
                             </Link>
                             <Link
                                 className="btn btn-primary"
-                                to="/checkout"
-                                onClick={closeModal}
+                                to={userInfo?.id ? '/checkout' : '/login'}
+                                state={
+                                    userInfo?.id
+                                        ? undefined
+                                        : { from: '/checkout' }
+                                }
+                                onClick={() => {
+                                    closeModal()
+                                    if (!userInfo?.id) {
+                                        toast.error(
+                                            'Iniciá sesión para continuar con la compra',
+                                        )
+                                    }
+                                }}
                             >
-                                Proceder al pago
+                                {userInfo?.id
+                                    ? 'Proceder al pago'
+                                    : 'Iniciar sesión para pagar'}
                             </Link>
                         </div>
                     </>

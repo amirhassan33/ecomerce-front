@@ -15,6 +15,7 @@ import PaymentSuccess from './pages/PaymentSuccess'
 import PaymentFailure from './pages/PaymentFailure'
 import PaymentPending from './pages/PaymentPending'
 import MyOrders from './pages/MyOrders'
+import AuthRoute from './components/ProtectedRoute/AuthRoute'
 function App() {
     return (
         <UserContextProvider>
@@ -29,7 +30,14 @@ function App() {
                                 path="/detailProduct/:id"
                                 element={<DetailProduct />}
                             />
-                            <Route path="/checkout" element={<Checkout />} />
+                            <Route
+                                path="/checkout"
+                                element={
+                                    <AuthRoute>
+                                        <Checkout />
+                                    </AuthRoute>
+                                }
+                            />
                             <Route
                                 path="/payment/success"
                                 element={<PaymentSuccess />}
@@ -42,7 +50,14 @@ function App() {
                                 path="/payment/failure"
                                 element={<PaymentFailure />}
                             />
-                            <Route path="/orders" element={<MyOrders />} />
+                            <Route
+                                path="/orders"
+                                element={
+                                    <AuthRoute>
+                                        <MyOrders />
+                                    </AuthRoute>
+                                }
+                            />
                             <Route
                                 path="/admin/dashboard/*"
                                 element={

@@ -4,8 +4,9 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { loginService } from '../../services/authServices'
 import { useUser } from '../../context/UserContext'
 import toast from 'react-hot-toast'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 const LoginForm = () => {
+    const location = useLocation()
     const {
         register,
         handleSubmit,
@@ -28,12 +29,12 @@ const LoginForm = () => {
         }
     }
 
-    if (redirect && userInfo.isAdmin) {
-        return <Navigate to={"/admin/dashboard"}/>
-    }
+    if (redirect) {
+        const destination =
+            location.state?.from ||
+            (userInfo.isAdmin ? '/admin/dashboard' : '/')
 
-    if (redirect && !userInfo.isAdmin) {
-        return <Navigate to="/" />
+        return <Navigate to={destination} replace />
     }
 
     return (
