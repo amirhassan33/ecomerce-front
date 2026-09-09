@@ -9,6 +9,15 @@ export const createOrder = async (orderData) => {
         const response = await axios.post(`${API_URL}/create`, orderData)
         return response.data
     } catch (error) {
-        throw new Error('Error al crear la orden')
+        throw new Error('Error al crear la orden', { cause: error })
+    }
+}
+
+export const getMyOrders = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/my-orders`)
+        return response.data
+    } catch (error) {
+        throw new Error('Error al obtener tus órdenes', { cause: error })
     }
 }

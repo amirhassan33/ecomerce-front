@@ -1,17 +1,23 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { FaCheckCircle } from 'react-icons/fa'
 import { toast } from 'react-hot-toast'
 import { useCart } from '../context/CartContext'
+import { useUser } from '../context/UserContext'
 
 const PaymentSuccess = () => {
     const [searchParams] = useSearchParams()
     const { clearCart } = useCart()
+    const { loading: userLoading } = useUser()
+    const cartCleared = useRef(false)
     const paymentId = searchParams.get('payment_id')
     const status = searchParams.get('status')
     const merchantOrder = searchParams.get('merchant_order_id')
 
     useEffect(() => {
+        if (userLoading || cartCleared.current) return
+        cartCleared.current = true
+
         // Limpiar carrito ya que el pago fue exitoso
         clearCart()
 
@@ -20,7 +26,7 @@ const PaymentSuccess = () => {
 
         // Mostrar notificación de éxito
         toast.success('¡Pago realizado exitosamente!')
-    }, [])
+    }, [userLoading, clearCart])
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-base-200">

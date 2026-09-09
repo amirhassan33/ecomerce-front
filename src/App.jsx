@@ -14,6 +14,7 @@ import Checkout from './pages/Checkout'
 import PaymentSuccess from './pages/PaymentSuccess'
 import PaymentFailure from './pages/PaymentFailure'
 import PaymentPending from './pages/PaymentPending'
+import MyOrders from './pages/MyOrders'
 function App() {
     return (
         <UserContextProvider>
@@ -41,6 +42,7 @@ function App() {
                                 path="/payment/failure"
                                 element={<PaymentFailure />}
                             />
+                            <Route path="/orders" element={<MyOrders />} />
                             <Route
                                 path="/admin/dashboard/*"
                                 element={
