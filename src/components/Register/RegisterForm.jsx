@@ -35,6 +35,7 @@ const RegisterForm = () => {
     }
 
     if (redirect && userInfo.isAdmin) {
+        return <Navigate to="/admin/dashboard" />
     }
 
     if (redirect && !userInfo.isAdmin) {
@@ -108,22 +109,27 @@ const RegisterForm = () => {
                 <input
                     {...register('password', {
                         required:
-                            'La contraseña es requerida [6 - 254 caracteres de longitud]',
+                            'La contraseña es requerida',
                         minLength: {
-                            value: 6,
+                            value: 8,
                             message:
-                                'La contraseña debe tener al menos 6 caracteres',
+                                'La contraseña debe tener al menos 8 caracteres',
                         },
                         maxLength: {
                             value: 254,
                             message:
                                 'La contraseña no puede tener más de 254 caracteres',
                         },
+                        pattern: {
+                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).+$/,
+                            message:
+                                'Debe incluir mayúscula, minúscula, número y carácter especial',
+                        },
                     })}
                     className={`p-2 outline-2 border rounded focus:outline-primary w-full ${errors.password ? 'border-red-500 outline-red-500 focus:outline-red-500' : ''}`}
                     type={showPassword ? 'text' : 'password'}
                     placeholder="Contraseña"
-                    autoComplete="current-password"
+                    autoComplete="new-password"
                 />
                 <button
                     onClick={() => setShowPassword((prev) => !prev)}
