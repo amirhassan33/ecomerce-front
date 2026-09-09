@@ -122,7 +122,7 @@ const LoginForm = () => {
                 type="submit"
                 className="bg-primary text-white py-2 px-4 rounded hover:bg-primary-dark transition-colors duration-300"
             >
-                Registrarse
+                Iniciar sesión
             </button>
         </form>
     )

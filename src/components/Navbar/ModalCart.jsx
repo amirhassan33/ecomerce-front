@@ -173,8 +173,9 @@ const ModalCart = () => {
                                 onClick={() => {
                                     closeModal()
                                     if (!userInfo?.id) {
-                                        toast.error(
+                                        toast(
                                             'Iniciá sesión para continuar con la compra',
+                                            { icon: '🔐' },
                                         )
                                     }
                                 }}
