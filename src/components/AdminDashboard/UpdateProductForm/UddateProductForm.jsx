@@ -1,28 +1,56 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useProduct } from '../../../context/ProductContext'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 const UpdateProductForm = ({ product }) => {
+    const [image, setImage] = useState(null)
+    const [preview, setPreview] = useState(product.imageUrl)
+    const [imageError, setImageError] = useState('')
     const { updateProduct } = useProduct()
     const navigate = useNavigate()
     const {
         register,
         handleSubmit,
         formState: { errors },
-        reset,
     } = useForm({
         mode: 'onChange',
         defaultValues: product,
     })
     const onSubmit = async (data) => {
-        const result = await updateProduct(product._id, data)
+        const result = await updateProduct(product._id, { ...data, image })
         if (result.success) {
             toast.success(result.message)
             navigate('/admin/dashboard/products')
         } else {
             toast.error(result.message)
         }
+    }
+
+    const handleImageChange = (event) => {
+        const file = event.target.files?.[0]
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']
+
+        if (!file) return
+
+        if (!allowedTypes.includes(file.type)) {
+            setImage(null)
+            setImageError('La imagen debe ser JPG, PNG o WebP')
+            event.target.value = ''
+            return
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            setImage(null)
+            setImageError('La imagen no puede superar los 5 MB')
+            event.target.value = ''
+            return
+        }
+
+        setImage(file)
+        setPreview(URL.createObjectURL(file))
+        setImageError('')
     }
     return (
         <form
@@ -122,24 +150,31 @@ const UpdateProductForm = ({ product }) => {
                     </p>
                 )}
             </div>
-            <div>
+            <div className="space-y-3">
+                <label className="font-medium block">Imagen del producto</label>
                 <input
-                    {...register('imageUrl', {
-                        required: 'La url de la imagen es requerida',
-                    })}
-                    className={`p-2 outline-2 rounded focus:outline-primary w-full ${errors.imageUrl ? 'border-red-400 outline-red-400 focus:outline-red-400' : ''}`}
-                    type="text"
-                    placeholder="Imagen"
-                    name="imageUrl"
-                    autoComplete="imageUrl"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    onChange={handleImageChange}
+                    className="file-input file-input-bordered w-full"
                 />
-                {errors.imageUrl && (
+                <p className="text-sm text-base-content/60">
+                    Si no elegís otra imagen, se conservará la actual.
+                </p>
+                {imageError && (
                     <p className="text-red-400 text-sm mt-2 ml-1">
-                        {errors.imageUrl.message}
+                        {imageError}
                     </p>
                 )}
+                {preview && (
+                    <img
+                        src={preview}
+                        alt="Vista previa del producto"
+                        className="w-full max-h-72 object-contain rounded-lg border border-base-300 bg-base-200"
+                    />
+                )}
             </div>
-            <button className='btn btn-primary type="submit'>
+            <button className="btn btn-primary" type="submit">
                 Actualizar producto
             </button>
         </form>

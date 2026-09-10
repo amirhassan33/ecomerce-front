@@ -46,15 +46,18 @@ export const ProductContextProvider = ({ children }) => {
     }, [])
 
     const updateProduct = useCallback(async (id, data) => {
-        const cleanData = {
-            name: data.name,
-            description: data.description,
-            price: Number(data.price),
-            stock: Number(data.stock),
-            imageUrl: data.imageUrl,
+        const formData = new FormData()
+        formData.append('name', data.name)
+        formData.append('description', data.description)
+        formData.append('price', data.price)
+        formData.append('stock', data.stock)
+
+        if (data.image) {
+            formData.append('image', data.image)
         }
+
         try {
-            const response = await axios.put(API_URL + `/${id}`, cleanData, {
+            const response = await axios.put(API_URL + `/${id}`, formData, {
                 withCredentials: true,
             })
             if (response.status === 200) {
@@ -80,15 +83,15 @@ export const ProductContextProvider = ({ children }) => {
     }, [])
 
     const createProduct = useCallback(async (data) => {
-        const cleanData = {
-            name: data.name,
-            description: data.description,
-            price: Number(data.price),
-            stock: Number(data.stock),
-            imageUrl: data.imageUrl,
-        }
+        const formData = new FormData()
+        formData.append('name', data.name)
+        formData.append('description', data.description)
+        formData.append('price', data.price)
+        formData.append('stock', data.stock)
+        formData.append('image', data.image)
+
         try {
-            const response = await axios.post(API_URL, cleanData, {
+            const response = await axios.post(API_URL, formData, {
                 withCredentials: true,
             })
             if (response.status === 201) {
