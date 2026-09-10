@@ -9,7 +9,7 @@ export const getProfileService = async () => {
         const response = await axios.get(`${API_URL}/profile`)
         return response.data
     } catch (error) {
-        throw new Error('Error al obtener el perfil')
+        throw new Error('Error al obtener el perfil', { cause: error })
     }
 }
 
@@ -28,7 +28,7 @@ export const loginService = async (data, reset, setRedirect, setUserInfo) => {
                 message: 'Inicio de sesion exitoso',
             }
         }
-    } catch (error) {
+    } catch {
         return {
             succes: false,
             message: 'Error al loguearse',
@@ -55,7 +55,7 @@ export const registerService = async (
                 message: true,
             }
         }
-    } catch (error) {
+    } catch {
         return {
             message: false,
         }
@@ -69,6 +69,19 @@ export const logoutService = async () => {
     } catch (error) {
         throw new Error(
             error.response?.data?.message || 'Error al cerrar la sesion',
+            { cause: error },
         )
     }
+}
+
+export const forgotPasswordService = async (email) => {
+    const response = await axios.post(`${API_URL}/forgot-password`, { email })
+    return response.data
+}
+
+export const resetPasswordService = async (token, password) => {
+    const response = await axios.post(`${API_URL}/reset-password/${token}`, {
+        password,
+    })
+    return response.data
 }

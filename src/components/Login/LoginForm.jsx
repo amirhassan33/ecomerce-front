@@ -4,7 +4,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { loginService } from '../../services/authServices'
 import { useUser } from '../../context/UserContext'
 import toast from 'react-hot-toast'
-import { Navigate, useLocation } from 'react-router-dom'
+import { Link, Navigate, useLocation } from 'react-router-dom'
 const LoginForm = () => {
     const location = useLocation()
     const {
@@ -124,6 +124,12 @@ const LoginForm = () => {
             >
                 Iniciar sesión
             </button>
+            <Link
+                to="/forgot-password"
+                className="text-center text-sm text-primary hover:underline"
+            >
+                ¿Olvidaste tu contraseña?
+            </Link>
         </form>
     )
 }

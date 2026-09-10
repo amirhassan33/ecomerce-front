@@ -16,6 +16,8 @@ import PaymentFailure from './pages/PaymentFailure'
 import PaymentPending from './pages/PaymentPending'
 import MyOrders from './pages/MyOrders'
 import AuthRoute from './components/ProtectedRoute/AuthRoute'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 function App() {
     return (
         <UserContextProvider>
@@ -26,6 +28,14 @@ function App() {
                             <Route path="/" element={<Home />} />
                             <Route path="/register" element={<Register />} />
                             <Route path="/login" element={<Login />} />
+                            <Route
+                                path="/forgot-password"
+                                element={<ForgotPassword />}
+                            />
+                            <Route
+                                path="/reset-password/:token"
+                                element={<ResetPassword />}
+                            />
                             <Route
                                 path="/detailProduct/:id"
                                 element={<DetailProduct />}
