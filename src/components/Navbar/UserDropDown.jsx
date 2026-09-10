@@ -1,9 +1,11 @@
 import { useUser } from '../../context/UserContext'
 import toast from 'react-hot-toast'
 import { logoutService } from '../../services/authServices'
+import { Link } from 'react-router-dom'
+import { FaBoxOpen, FaRightFromBracket, FaUserShield } from 'react-icons/fa6'
 
 const UserDropDown = () => {
-    const { setUserInfo } = useUser()
+    const { userInfo, setUserInfo } = useUser()
 
     const handleLogout = async () => {
         try {
@@ -27,24 +29,51 @@ const UserDropDown = () => {
                     <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
                 </div>
             </div>
-            <ul
+            <div
                 tabIndex={0}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow"
+                className="dropdown-content bg-base-100 rounded-box z-50 mt-3 w-72 border border-base-300 shadow-xl overflow-hidden"
             >
-                <li>
-                    <a className="justify-between">
-                        Profile <span className="badge">Nuevo</span>
-                    </a>
-                </li>
-                <li>
-                    <a className="justify-between">Settings</a>
-                </li>
-                <li>
-                    <a onClick={handleLogout} className="justify-between">
-                        Logout
-                    </a>
-                </li>
-            </ul>
+                <div className="px-4 py-4 border-b border-base-300 bg-base-200/60">
+                    <p className="font-bold truncate">
+                        {userInfo?.username || 'Mi cuenta'}
+                    </p>
+                    <p className="text-sm text-base-content/60 truncate">
+                        {userInfo?.email}
+                    </p>
+                </div>
+
+                <ul className="menu menu-sm p-2">
+                    <li>
+                        <Link to="/orders" className="flex gap-3 py-3">
+                            <FaBoxOpen />
+                            Mis órdenes
+                        </Link>
+                    </li>
+
+                    {userInfo?.isAdmin && (
+                        <li>
+                            <Link
+                                to="/admin/dashboard"
+                                className="flex gap-3 py-3"
+                            >
+                                <FaUserShield />
+                                Panel de administración
+                            </Link>
+                        </li>
+                    )}
+
+                    <li className="border-t border-base-300 mt-1 pt-1">
+                        <button
+                            type="button"
+                            onClick={handleLogout}
+                            className="flex gap-3 py-3 text-error hover:bg-error/10"
+                        >
+                            <FaRightFromBracket />
+                            Cerrar sesión
+                        </button>
+                    </li>
+                </ul>
+            </div>
         </div>
     )
 }
