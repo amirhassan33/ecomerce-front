@@ -3,6 +3,7 @@ import TableProductDashboard from '../components/AdminDashboard/TableProductDash
 import DashboardLayout from '../layout/DashboardLayout'
 import CreateProduct from './CreateProduct'
 import UpdateProduct from './UpdateProducts'
+import AdminOrders from './AdminOrders'
 
 const AdminDashboard = () => {
     return (
@@ -22,6 +23,7 @@ const AdminDashboard = () => {
                         path="products/updateProduct/:id"
                         element={<UpdateProduct />}
                     />
+                    <Route path="orders" element={<AdminOrders />} />
                 </Route>
             </Routes>
         </section>

@@ -35,6 +35,9 @@ const DashboardLayout = () => {
                                 Productos
                             </Link>
                         </li>
+                        <li>
+                            <Link to="/admin/dashboard/orders">Pedidos</Link>
+                        </li>
                     </ul>
                 </div>
                 <div className="md:mx-auto hidden md:inline-flex md:gap-4 ">
@@ -43,6 +46,12 @@ const DashboardLayout = () => {
                         to="/admin/dashboard/products"
                     >
                         Productos
+                    </Link>
+                    <Link
+                        className="btn btn-outline"
+                        to="/admin/dashboard/orders"
+                    >
+                        Pedidos
                     </Link>
                 </div>
             </div>

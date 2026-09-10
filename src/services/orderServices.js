@@ -21,3 +21,12 @@ export const getMyOrders = async () => {
         throw new Error('Error al obtener tus órdenes', { cause: error })
     }
 }
+
+export const getAllOrders = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/admin/all`)
+        return response.data
+    } catch (error) {
+        throw new Error('Error al obtener los pedidos', { cause: error })
+    }
+}
