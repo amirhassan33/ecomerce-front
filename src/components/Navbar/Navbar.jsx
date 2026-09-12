@@ -39,20 +39,20 @@ const Navbar = () => {
 
     return (
         <header className="relative z-40 py-3">
-            <nav className="navbar min-h-16 rounded-2xl border border-base-300 bg-base-100 px-3 shadow-sm lg:px-5">
-                <div className="navbar-start gap-2">
+            <nav className="navbar min-h-16 rounded-2xl border border-white/20 bg-gradient-to-r from-violet-700 via-indigo-600 to-pink-500 px-2 text-white shadow-lg shadow-indigo-950/15 sm:px-4 lg:px-5">
+                <div className="navbar-start min-w-0 gap-1 sm:gap-2">
                     <div className="dropdown lg:hidden">
                         <div
                             tabIndex={0}
                             role="button"
-                            className="btn btn-circle btn-ghost"
+                            className="btn btn-circle btn-ghost text-white hover:bg-white/15"
                             aria-label="Abrir menú de navegación"
                         >
                             <FiMenu className="h-6 w-6" />
                         </div>
                         <ul
                             tabIndex={0}
-                            className="menu dropdown-content z-50 mt-3 w-64 rounded-2xl border border-base-300 bg-base-100 p-2 shadow-xl"
+                            className="menu dropdown-content z-50 mt-3 w-64 max-w-[calc(100vw-2rem)] rounded-2xl border border-base-300 bg-base-100 p-2 text-base-content shadow-xl"
                         >
                             {websiteLinks.map(({ label, href, icon: Icon }) => (
                                 <li key={label}>
@@ -73,9 +73,10 @@ const Navbar = () => {
 
                     <a
                         href={`${WEBSITE_URL}/`}
-                        className="whitespace-nowrap text-lg font-extrabold tracking-tight sm:text-xl"
+                        className="min-w-0 whitespace-nowrap text-base font-extrabold tracking-tight text-white sm:text-xl"
                     >
-                        Amir <span className="text-primary">&amp;</span> Cris
+                        <span className="sm:hidden">Amir &amp; Cris</span>
+                        <span className="hidden sm:inline">Servicios Amir y Cris</span>
                     </a>
                 </div>
 
@@ -83,13 +84,15 @@ const Navbar = () => {
                     <ul className="menu menu-horizontal items-center gap-1 px-1">
                         {websiteLinks.map(({ label, href }) => (
                             <li key={label}>
-                                <a href={href}>{label}</a>
+                                <a href={href} className="text-white hover:bg-white/15">
+                                    {label}
+                                </a>
                             </li>
                         ))}
                         <li>
                             <Link
                                 to="/"
-                                className="bg-primary/10 font-bold text-primary hover:bg-primary/15"
+                                className="bg-white font-bold text-indigo-700 shadow-sm hover:bg-white/90"
                             >
                                 Tienda
                             </Link>
@@ -97,11 +100,11 @@ const Navbar = () => {
                     </ul>
                 </div>
 
-                <div className="navbar-end gap-2">
+                <div className="navbar-end min-w-0 gap-1 sm:gap-2">
                     <AuthButtons />
                     {userInfo?.isAdmin && (
                         <Link
-                            className="btn h-11 min-h-0 rounded-full border-0 bg-slate-900 px-3 text-white shadow-sm hover:bg-slate-700 sm:px-4"
+                            className="btn hidden h-11 min-h-0 rounded-full border-0 bg-slate-900 px-3 text-white shadow-sm hover:bg-slate-700 sm:inline-flex sm:px-4"
                             to="/admin/dashboard"
                             aria-label="Ir al panel de administración"
                         >

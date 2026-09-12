@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar/Navbar'
 const Layout = () => {
     return (
         <div className="flex min-h-screen flex-col">
-            <div className="mx-auto w-full max-w-[1200px] px-6">
+            <div className="mx-auto w-full max-w-[1200px] px-2 sm:px-6">
                 <Navbar />
             </div>
 
