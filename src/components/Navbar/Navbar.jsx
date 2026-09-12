@@ -39,7 +39,7 @@ const Navbar = () => {
 
     return (
         <header className="relative z-40 py-3">
-            <nav className="navbar min-h-16 rounded-2xl border border-white/20 bg-gradient-to-r from-violet-700 via-indigo-600 to-pink-500 px-2 text-white shadow-lg shadow-indigo-950/15 sm:px-4 lg:px-5">
+            <nav className="navbar min-h-16 rounded-2xl border border-white/20 bg-gradient-to-r from-violet-700 via-indigo-600 to-pink-500 px-2 shadow-lg shadow-indigo-950/15 sm:px-4 lg:px-5">
                 <div className="navbar-start min-w-0 gap-1 sm:gap-2">
                     <div className="dropdown lg:hidden">
                         <div
