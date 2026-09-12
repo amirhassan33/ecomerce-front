@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { CgTrash } from 'react-icons/cg'
 import { FaMinus, FaPlus } from 'react-icons/fa'
 import { useCart } from '../../context/CartContext'
@@ -6,6 +7,7 @@ import { Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 const ModalCart = () => {
+    const [showClearConfirmation, setShowClearConfirmation] = useState(false)
     const { userInfo } = useUser()
     const {
         cart,
@@ -141,15 +143,7 @@ const ModalCart = () => {
                         </div>
                         <div className="modal-action mt-4 gap-2 flex flex-col lg:flex-row lg:justify-between">
                             <button
-                                onClick={async () => {
-                                    if (
-                                        window.confirm(
-                                            '¿Estas seguro de que quieres vaciar el carrito?',
-                                        )
-                                    ) {
-                                        await clearCart()
-                                    }
-                                }}
+                                onClick={() => setShowClearConfirmation(true)}
                                 disabled={loading}
                                 className="btn btn-error"
                             >
@@ -189,6 +183,70 @@ const ModalCart = () => {
                 )}
             </section>
             <div className="modal-backdrop" onClick={closeModal}></div>
+
+            {showClearConfirmation && (
+                <div
+                    className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/60 px-4 backdrop-blur-sm"
+                    onClick={() => setShowClearConfirmation(false)}
+                >
+                    <section
+                        role="alertdialog"
+                        aria-modal="true"
+                        aria-labelledby="clear-cart-title"
+                        aria-describedby="clear-cart-description"
+                        className="w-full max-w-md overflow-hidden rounded-3xl bg-base-100 shadow-2xl"
+                        onClick={(event) => event.stopPropagation()}
+                    >
+                        <div className="h-2 bg-gradient-to-r from-violet-600 via-purple-500 to-pink-500"></div>
+                        <div className="p-6 text-center sm:p-8">
+                            <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-red-500">
+                                <CgTrash size={32} aria-hidden="true" />
+                            </div>
+                            <h3
+                                id="clear-cart-title"
+                                className="text-2xl font-bold text-base-content"
+                            >
+                                ¿Vaciar el carrito?
+                            </h3>
+                            <p
+                                id="clear-cart-description"
+                                className="mx-auto mt-3 max-w-sm text-base-content/70"
+                            >
+                                Se eliminarán todos los productos que agregaste.
+                                Esta acción no se puede deshacer.
+                            </p>
+                            <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:justify-center">
+                                <button
+                                    type="button"
+                                    className="btn border-base-300 bg-base-100 sm:min-w-36"
+                                    onClick={() =>
+                                        setShowClearConfirmation(false)
+                                    }
+                                    disabled={loading}
+                                >
+                                    Seguir comprando
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn border-0 bg-gradient-to-r from-red-500 to-pink-500 text-white hover:from-red-600 hover:to-pink-600 sm:min-w-36"
+                                    onClick={async () => {
+                                        await clearCart()
+                                        setShowClearConfirmation(false)
+                                    }}
+                                    disabled={loading}
+                                >
+                                    {loading ? (
+                                        <span className="loading loading-spinner loading-sm"></span>
+                                    ) : (
+                                        <CgTrash size={19} aria-hidden="true" />
+                                    )}
+                                    Sí, vaciar
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            )}
         </div>
     )
 }
