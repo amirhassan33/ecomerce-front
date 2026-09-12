@@ -23,11 +23,10 @@ const UserDropDown = () => {
             <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost btn-circle avatar"
+                aria-label="Abrir menú de usuario"
+                className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-2 border-white bg-gradient-to-br from-indigo-500 to-violet-700 text-base font-bold uppercase text-white shadow-sm ring-1 ring-base-300 transition hover:scale-105"
             >
-                <div className="w-10 rounded-full">
-                    <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-                </div>
+                {userInfo?.username?.charAt(0) || 'U'}
             </div>
             <div
                 tabIndex={0}

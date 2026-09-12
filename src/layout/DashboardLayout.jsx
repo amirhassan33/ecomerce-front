@@ -1,60 +1,47 @@
-import { Outlet, Link } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
+import { FiClipboard, FiPackage, FiShield } from 'react-icons/fi'
+
+const getTabClasses = ({ isActive }) =>
+    `flex min-h-11 items-center justify-center gap-2 rounded-lg px-4 py-2 font-semibold transition sm:min-w-36 ${
+        isActive
+            ? 'bg-slate-900 text-white shadow-sm'
+            : 'text-base-content/70 hover:bg-base-100 hover:text-base-content'
+    }`
 
 const DashboardLayout = () => {
     return (
         <>
-            <div className="navbar bg-base-100 shadow-lg mt-8">
-                <div className="dropdown md:hidden">
-                    <div
-                        tabIndex={0}
-                        role="button"
-                        className="btn btn-ghost lg:hidden"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            {' '}
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M4 6h16M4 12h8m-8 6h16"
-                            />{' '}
-                        </svg>
+            <section className="mx-auto mt-8 max-w-6xl px-4">
+                <div className="rounded-2xl border border-base-300 bg-base-100 p-4 shadow-sm sm:flex sm:items-center sm:justify-between sm:p-6">
+                    <div className="mb-4 flex items-center gap-3 sm:mb-0">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-900 text-white">
+                            <FiShield className="h-5 w-5" />
+                        </div>
+                        <div>
+                            <h1 className="text-xl font-bold sm:text-2xl">
+                                Panel de administración
+                            </h1>
+                            <p className="text-sm text-base-content/60">
+                                Gestioná tu tienda desde un solo lugar
+                            </p>
+                        </div>
                     </div>
-                    <ul
-                        tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 p-2 shadow"
+
+                    <nav
+                        className="grid grid-cols-2 gap-1 rounded-xl bg-base-200 p-1"
+                        aria-label="Secciones de administración"
                     >
-                        <li>
-                            <Link to="/admin/dashboard/products">
-                                Productos
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/admin/dashboard/orders">Pedidos</Link>
-                        </li>
-                    </ul>
+                        <NavLink className={getTabClasses} to="/admin/dashboard/products">
+                            <FiPackage />
+                            Productos
+                        </NavLink>
+                        <NavLink className={getTabClasses} to="/admin/dashboard/orders">
+                            <FiClipboard />
+                            Pedidos
+                        </NavLink>
+                    </nav>
                 </div>
-                <div className="md:mx-auto hidden md:inline-flex md:gap-4 ">
-                    <Link
-                        className="btn btn-primary"
-                        to="/admin/dashboard/products"
-                    >
-                        Productos
-                    </Link>
-                    <Link
-                        className="btn btn-outline"
-                        to="/admin/dashboard/orders"
-                    >
-                        Pedidos
-                    </Link>
-                </div>
-            </div>
+            </section>
             <Outlet />
         </>
     )

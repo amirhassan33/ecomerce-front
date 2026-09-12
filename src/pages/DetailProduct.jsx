@@ -18,12 +18,18 @@ const DetailProduct = () => {
             {productLoading ? (
                 <div className="loading loading-spinner"></div>
             ) : (
-                <div className="mt-6 md:flex">
-                    <div className="md:w-1/2">
-                        <img src={product.imageUrl} alt={product.name} />
+                <div className="mt-6 grid gap-8 md:grid-cols-2">
+                    <div className="flex h-[420px] items-center justify-center overflow-hidden rounded-xl bg-gray-100 md:h-[520px]">
+                        <img
+                            src={product.imageUrl}
+                            alt={product.name}
+                            className="h-full w-full object-contain"
+                        />
                     </div>
                     <section className="flex flex-col gap-5 pt-2 md:pt-0 md:pl-0 md:w-1/2">
-                        <h1 className="text-5xl font-bold">{product.name}</h1>
+                        <h1 className="break-words text-3xl font-bold md:text-5xl">
+                            {product.name}
+                        </h1>
                         <p className="text-xl badge badge-warning p-4 font-bold">
                             {product.price}
                         </p>

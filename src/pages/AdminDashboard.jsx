@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Navigate, Routes, Route } from 'react-router-dom'
 import TableProductDashboard from '../components/AdminDashboard/TableProductDashboard/TableProductDashboard'
 import DashboardLayout from '../layout/DashboardLayout'
 import CreateProduct from './CreateProduct'
@@ -10,7 +10,10 @@ const AdminDashboard = () => {
         <section>
             <Routes>
                 <Route path="/" element={<DashboardLayout />}>
-                    <Route index element={<TableProductDashboard />} />
+                    <Route
+                        index
+                        element={<Navigate to="products" replace />}
+                    />
                     <Route
                         path="products"
                         element={<TableProductDashboard />}

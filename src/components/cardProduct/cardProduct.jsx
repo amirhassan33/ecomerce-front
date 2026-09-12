@@ -23,7 +23,7 @@ const CardProduct = ({
             </figure>
             <div className="card-body">
                 <h2 className="card-title">{name}</h2>
-                <div className="badge badge-warning">{price}</div>
+                <div className="badge badge-warning">{`$${Number(price).toLocaleString('es-AR')}`}</div>
                 <p>{description}</p>
                 <div className="card-actions justify-between mt-4">
                     <Link

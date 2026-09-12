@@ -1,4 +1,5 @@
 import ModalCart from './ModalCart'
+import { FiShoppingBag } from 'react-icons/fi'
 import { useCart } from '../../context/CartContext'
 
 const Cart = () => {
@@ -14,27 +15,16 @@ const Cart = () => {
                     <div
                         tabIndex={0}
                         role="button"
-                        className="btn btn-success btn-circle"
+                        aria-label="Abrir carrito"
+                        className="btn btn-circle min-h-0 h-11 w-11 border border-base-300 bg-base-100 text-base-content shadow-sm hover:border-slate-400 hover:bg-base-200"
                     >
                         <div className="indicator">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                {' '}
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.9 9.667M7 13l-2.167 2.833A2.003 2.003 0 006 18h12a2.003 2.003 0 002-2V8a2.003 2.003 0 00-2-2H7m-5 8h14m-5-8v8m-5-8H9"
-                                />
-                            </svg>
-                            <span className="badge badge-sm indicator-item">
-                                {itemsQuantity}
-                            </span>
+                            <FiShoppingBag className="h-5 w-5" />
+                            {itemsQuantity > 0 && (
+                                <span className="badge badge-primary badge-sm indicator-item border-2 border-base-100 font-bold">
+                                    {itemsQuantity}
+                                </span>
+                            )}
                         </div>
                     </div>
                     <div
@@ -43,7 +33,7 @@ const Cart = () => {
                     >
                         <div className="card-body">
                             <span className="text-lg font-bold">
-                                {itemsQuantity} items
+                                {itemsQuantity} productos
                             </span>
                             <span className="text-info">
                                 Subtotal: ${total}
@@ -53,7 +43,7 @@ const Cart = () => {
                                     onClick={handleViewCartClick}
                                     className="btn btn-primary btn-block"
                                 >
-                                    View Cart
+                                    Ver carrito
                                 </button>
                             </div>
                         </div>
