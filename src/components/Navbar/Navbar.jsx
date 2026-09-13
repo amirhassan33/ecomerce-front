@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import {
-    FiBriefcase,
     FiHome,
     FiMail,
     FiMenu,
@@ -21,11 +20,6 @@ const websiteLinks = [
         label: 'Nosotros',
         href: `${WEBSITE_URL}/pages/nosotros.html`,
         icon: FiUsers,
-    },
-    {
-        label: 'Servicios',
-        href: `${WEBSITE_URL}/pages/loquehacemos.html`,
-        icon: FiBriefcase,
     },
     {
         label: 'Contacto',

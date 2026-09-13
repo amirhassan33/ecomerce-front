@@ -21,7 +21,6 @@ const Footer = () => {
                     <h3 className="pie__subtitulo">Navegación</h3>
                     <a href={`${WEBSITE_URL}/`}>Inicio</a>
                     <a href={`${WEBSITE_URL}/pages/nosotros.html`}>Nosotros</a>
-                    <a href={`${WEBSITE_URL}/pages/loquehacemos.html`}>Servicios</a>
                     <a href={`${WEBSITE_URL}/pages/contacto.html`}>Contacto</a>
                 </nav>
 
