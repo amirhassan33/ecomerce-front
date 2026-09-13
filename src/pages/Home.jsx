@@ -35,10 +35,8 @@ const Home = () => {
             const matchesName = normalizeText(product.name || '').includes(
                 normalizedSearch,
             )
-            const matchesMinPrice =
-                minPrice === '' || price >= Number(minPrice)
-            const matchesMaxPrice =
-                maxPrice === '' || price <= Number(maxPrice)
+            const matchesMinPrice = minPrice === '' || price >= Number(minPrice)
+            const matchesMaxPrice = maxPrice === '' || price <= Number(maxPrice)
             const matchesStock =
                 stockFilter === 'all' ||
                 (stockFilter === 'available' && stock > 0) ||
@@ -99,9 +97,11 @@ const Home = () => {
     return (
         <div>
             <h1 className="text-4xl font-bold text-center mt-7 mb-2 text-purple-700 uppercase">
-                Mi Ecomers
+                Tienda Online
             </h1>
-            <p className="text-center mb-5">Elegí tu producto</p>
+            <p className="text-center mb-5">
+                Encontrá el producto ideal para vos
+            </p>
 
             <div className="mx-auto mb-8 max-w-xl px-4">
                 <div className="input input-bordered flex h-12 items-center gap-3 rounded-xl bg-base-100 shadow-sm focus-within:border-primary focus-within:outline-none">
@@ -178,7 +178,9 @@ const Home = () => {
 
                     <div className="space-y-5">
                         <fieldset>
-                            <legend className="mb-2 font-semibold">Precio</legend>
+                            <legend className="mb-2 font-semibold">
+                                Precio
+                            </legend>
                             <div className="grid grid-cols-2 gap-2 lg:grid-cols-1">
                                 <input
                                     type="number"
@@ -283,55 +285,61 @@ const Home = () => {
                     </div>
 
                     {!productsLoading && !error && totalPages > 1 && (
-                <nav
-                    className="my-10 flex flex-wrap items-center justify-center gap-2 px-4"
-                    aria-label="Paginación de productos"
-                >
-                    <button
-                        type="button"
-                        className="btn btn-outline btn-sm sm:btn-md"
-                        onClick={() => changePage(activePage - 1)}
-                        disabled={activePage === 1}
-                        aria-label="Ir a la página anterior"
-                    >
-                        <FiChevronLeft aria-hidden="true" />
-                        <span className="hidden sm:inline">Anterior</span>
-                    </button>
-
-                    {Array.from({ length: totalPages }, (_, index) => {
-                        const page = index + 1
-
-                        return (
+                        <nav
+                            className="my-10 flex flex-wrap items-center justify-center gap-2 px-4"
+                            aria-label="Paginación de productos"
+                        >
                             <button
-                                key={page}
                                 type="button"
-                                className={`btn btn-square btn-sm sm:btn-md ${
-                                    page === activePage
-                                        ? 'btn-primary'
-                                        : 'btn-outline'
-                                }`}
-                                onClick={() => changePage(page)}
-                                aria-label={`Ir a la página ${page}`}
-                                aria-current={
-                                    page === activePage ? 'page' : undefined
-                                }
+                                className="btn btn-outline btn-sm sm:btn-md"
+                                onClick={() => changePage(activePage - 1)}
+                                disabled={activePage === 1}
+                                aria-label="Ir a la página anterior"
                             >
-                                {page}
+                                <FiChevronLeft aria-hidden="true" />
+                                <span className="hidden sm:inline">
+                                    Anterior
+                                </span>
                             </button>
-                        )
-                    })}
 
-                    <button
-                        type="button"
-                        className="btn btn-outline btn-sm sm:btn-md"
-                        onClick={() => changePage(activePage + 1)}
-                        disabled={activePage === totalPages}
-                        aria-label="Ir a la página siguiente"
-                    >
-                        <span className="hidden sm:inline">Siguiente</span>
-                        <FiChevronRight aria-hidden="true" />
-                    </button>
-                </nav>
+                            {Array.from({ length: totalPages }, (_, index) => {
+                                const page = index + 1
+
+                                return (
+                                    <button
+                                        key={page}
+                                        type="button"
+                                        className={`btn btn-square btn-sm sm:btn-md ${
+                                            page === activePage
+                                                ? 'btn-primary'
+                                                : 'btn-outline'
+                                        }`}
+                                        onClick={() => changePage(page)}
+                                        aria-label={`Ir a la página ${page}`}
+                                        aria-current={
+                                            page === activePage
+                                                ? 'page'
+                                                : undefined
+                                        }
+                                    >
+                                        {page}
+                                    </button>
+                                )
+                            })}
+
+                            <button
+                                type="button"
+                                className="btn btn-outline btn-sm sm:btn-md"
+                                onClick={() => changePage(activePage + 1)}
+                                disabled={activePage === totalPages}
+                                aria-label="Ir a la página siguiente"
+                            >
+                                <span className="hidden sm:inline">
+                                    Siguiente
+                                </span>
+                                <FiChevronRight aria-hidden="true" />
+                            </button>
+                        </nav>
                     )}
                 </section>
             </div>

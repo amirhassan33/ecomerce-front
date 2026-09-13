@@ -46,7 +46,7 @@ const ModalCart = () => {
                     </div>
                 ) : cart.length === 0 ? (
                     <div className="text-center py-8">
-                        <p className="text-gray-500">Tu carrito esta vacio</p>
+                        <p className="text-gray-500">Tu carrito está vacío</p>
                     </div>
                 ) : (
                     <>
@@ -132,7 +132,7 @@ const ModalCart = () => {
                         </div>
                         <div className="border-t pt-4 mt-4 ">
                             <div className="flex justify-between items-center mb-2">
-                                <span>Total de articulos:</span>
+                                <span>Total de artículos:</span>
                                 <span className="font-semibold">
                                     {itemsQuantity}
                                 </span>
