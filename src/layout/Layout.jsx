@@ -5,7 +5,7 @@ import WhatsAppButton from '../components/WhatsAppButton/WhatsAppButton'
 
 const Layout = () => {
     return (
-        <div className="flex min-h-screen flex-col">
+        <div className="flex min-h-screen flex-col bg-[#f7f7fc]">
             <div className="mx-auto w-full max-w-[1200px] px-2 sm:px-6">
                 <Navbar />
             </div>
