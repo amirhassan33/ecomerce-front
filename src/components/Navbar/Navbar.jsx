@@ -5,7 +5,6 @@ import {
     FiMail,
     FiMenu,
     FiShoppingBag,
-    FiUserPlus,
     FiUsers,
 } from 'react-icons/fi'
 import { FaGaugeHigh } from 'react-icons/fa6'
@@ -69,17 +68,6 @@ const Navbar = () => {
                                     Tienda
                                 </Link>
                             </li>
-                            {!loading && !userInfo?.id && (
-                                <li className="md:hidden">
-                                    <Link
-                                        to="/register"
-                                        className="gap-3 py-3 font-semibold"
-                                    >
-                                        <FiUserPlus />
-                                        Crear cuenta
-                                    </Link>
-                                </li>
-                            )}
                         </ul>
                     </div>
 

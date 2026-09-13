@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { FiUserPlus } from 'react-icons/fi'
 import { loginService } from '../../services/authServices'
 import { useUser } from '../../context/UserContext'
 import toast from 'react-hot-toast'
@@ -130,6 +131,18 @@ const LoginForm = () => {
             >
                 ¿Olvidaste tu contraseña?
             </Link>
+            <div className="mt-2 border-t border-base-300 pt-5 text-center">
+                <p className="mb-3 text-sm text-base-content/70">
+                    ¿Todavía no tenés una cuenta?
+                </p>
+                <Link
+                    to="/register"
+                    className="btn btn-outline btn-primary w-full gap-2"
+                >
+                    <FiUserPlus aria-hidden="true" />
+                    Crear cuenta
+                </Link>
+            </div>
         </form>
     )
 }
