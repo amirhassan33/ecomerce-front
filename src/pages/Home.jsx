@@ -1,5 +1,11 @@
 import { useState } from 'react'
-import { FiChevronLeft, FiChevronRight, FiSearch, FiX } from 'react-icons/fi'
+import {
+    FiChevronLeft,
+    FiChevronRight,
+    FiFilter,
+    FiSearch,
+    FiX,
+} from 'react-icons/fi'
 import CardProduct from '../components/cardProduct/cardProduct'
 import { useProduct } from '../context/ProductContext'
 
@@ -9,6 +15,11 @@ const Home = () => {
     const { products, productsLoading, error } = useProduct()
     const [search, setSearch] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
+    const [minPrice, setMinPrice] = useState('')
+    const [maxPrice, setMaxPrice] = useState('')
+    const [stockFilter, setStockFilter] = useState('all')
+    const [sortOrder, setSortOrder] = useState('default')
+    const [showFilters, setShowFilters] = useState(false)
 
     const normalizeText = (text) =>
         text
@@ -17,9 +28,50 @@ const Home = () => {
             .replace(/[\u0300-\u036f]/g, '')
 
     const normalizedSearch = normalizeText(search.trim())
-    const filteredProducts = products.filter((product) =>
-        normalizeText(product.name || '').includes(normalizedSearch),
-    )
+    const filteredProducts = products
+        .filter((product) => {
+            const price = Number(product.price) || 0
+            const stock = Number(product.stock) || 0
+            const matchesName = normalizeText(product.name || '').includes(
+                normalizedSearch,
+            )
+            const matchesMinPrice =
+                minPrice === '' || price >= Number(minPrice)
+            const matchesMaxPrice =
+                maxPrice === '' || price <= Number(maxPrice)
+            const matchesStock =
+                stockFilter === 'all' ||
+                (stockFilter === 'available' && stock > 0) ||
+                (stockFilter === 'unavailable' && stock === 0)
+
+            return (
+                matchesName &&
+                matchesMinPrice &&
+                matchesMaxPrice &&
+                matchesStock
+            )
+        })
+        .sort((firstProduct, secondProduct) => {
+            if (sortOrder === 'price-asc') {
+                return Number(firstProduct.price) - Number(secondProduct.price)
+            }
+            if (sortOrder === 'price-desc') {
+                return Number(secondProduct.price) - Number(firstProduct.price)
+            }
+            if (sortOrder === 'name') {
+                return (firstProduct.name || '').localeCompare(
+                    secondProduct.name || '',
+                    'es',
+                )
+            }
+            return 0
+        })
+    const hasActiveFilters =
+        search.trim() ||
+        minPrice !== '' ||
+        maxPrice !== '' ||
+        stockFilter !== 'all' ||
+        sortOrder !== 'default'
     const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE)
     const activePage = Math.min(currentPage, totalPages || 1)
     const firstProductIndex = (activePage - 1) * PRODUCTS_PER_PAGE
@@ -33,6 +85,15 @@ const Home = () => {
         document
             .getElementById('productos')
             ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+
+    const clearFilters = () => {
+        setSearch('')
+        setMinPrice('')
+        setMaxPrice('')
+        setStockFilter('all')
+        setSortOrder('default')
+        setCurrentPage(1)
     }
 
     return (
@@ -74,7 +135,7 @@ const Home = () => {
                     )}
                 </div>
 
-                {search.trim() && !productsLoading && !error && (
+                {hasActiveFilters && !productsLoading && !error && (
                     <p className="mt-2 px-1 text-sm text-base-content/60">
                         {filteredProducts.length === 1
                             ? '1 producto encontrado'
@@ -83,42 +144,145 @@ const Home = () => {
                 )}
             </div>
 
-            <div
-                id="productos"
-                className="scroll-mt-28 flex flex-wrap justify-center gap-5"
+            <button
+                type="button"
+                className="btn btn-outline mb-4 w-full gap-2 lg:hidden"
+                onClick={() => setShowFilters((current) => !current)}
+                aria-expanded={showFilters}
+                aria-controls="panel-filtros"
             >
-                {productsLoading ? (
-                    <div className="loading loading-spinner"></div>
-                ) : error ? (
-                    <p>Error al cargar los productos</p>
-                ) : filteredProducts.length === 0 ? (
-                    <div className="mx-4 w-full max-w-xl rounded-2xl border border-base-300 bg-base-100 p-10 text-center shadow-sm">
-                        <FiSearch className="mx-auto mb-3 h-9 w-9 text-base-content/30" />
-                        <h2 className="text-lg font-bold">
-                            No encontramos productos
-                        </h2>
-                        <p className="mt-1 text-base-content/60">
-                            Probá escribiendo otro nombre.
-                        </p>
-                        <button
-                            type="button"
-                            onClick={() => {
-                                setSearch('')
-                                setCurrentPage(1)
-                            }}
-                            className="btn btn-outline btn-sm mt-5"
-                        >
-                            Ver todos los productos
-                        </button>
-                    </div>
-                ) : (
-                    visibleProducts.map((product) => (
-                        <CardProduct key={product._id} product={product} />
-                    ))
-                )}
-            </div>
+                <FiFilter aria-hidden="true" />
+                {showFilters ? 'Ocultar filtros' : 'Mostrar filtros'}
+            </button>
 
-            {!productsLoading && !error && totalPages > 1 && (
+            <div className="grid items-start gap-6 lg:grid-cols-[240px_minmax(0,1fr)]">
+                <aside
+                    id="panel-filtros"
+                    className={`${showFilters ? 'block' : 'hidden'} rounded-2xl border border-base-300 bg-base-100 p-5 shadow-sm lg:sticky lg:top-4 lg:block`}
+                >
+                    <div className="mb-5 flex items-center justify-between">
+                        <h2 className="flex items-center gap-2 text-lg font-bold">
+                            <FiFilter aria-hidden="true" />
+                            Filtros
+                        </h2>
+                        {hasActiveFilters && (
+                            <button
+                                type="button"
+                                className="btn btn-ghost btn-xs text-primary"
+                                onClick={clearFilters}
+                            >
+                                Limpiar
+                            </button>
+                        )}
+                    </div>
+
+                    <div className="space-y-5">
+                        <fieldset>
+                            <legend className="mb-2 font-semibold">Precio</legend>
+                            <div className="grid grid-cols-2 gap-2 lg:grid-cols-1">
+                                <input
+                                    type="number"
+                                    min="0"
+                                    value={minPrice}
+                                    onChange={(event) => {
+                                        setMinPrice(event.target.value)
+                                        setCurrentPage(1)
+                                    }}
+                                    className="input input-bordered w-full"
+                                    placeholder="Mínimo"
+                                    aria-label="Precio mínimo"
+                                />
+                                <input
+                                    type="number"
+                                    min="0"
+                                    value={maxPrice}
+                                    onChange={(event) => {
+                                        setMaxPrice(event.target.value)
+                                        setCurrentPage(1)
+                                    }}
+                                    className="input input-bordered w-full"
+                                    placeholder="Máximo"
+                                    aria-label="Precio máximo"
+                                />
+                            </div>
+                        </fieldset>
+
+                        <label className="form-control w-full">
+                            <span className="label-text mb-2 font-semibold">
+                                Disponibilidad
+                            </span>
+                            <select
+                                className="select select-bordered w-full"
+                                value={stockFilter}
+                                onChange={(event) => {
+                                    setStockFilter(event.target.value)
+                                    setCurrentPage(1)
+                                }}
+                            >
+                                <option value="all">Todos</option>
+                                <option value="available">Con stock</option>
+                                <option value="unavailable">Sin stock</option>
+                            </select>
+                        </label>
+
+                        <label className="form-control w-full">
+                            <span className="label-text mb-2 font-semibold">
+                                Ordenar por
+                            </span>
+                            <select
+                                className="select select-bordered w-full"
+                                value={sortOrder}
+                                onChange={(event) => {
+                                    setSortOrder(event.target.value)
+                                    setCurrentPage(1)
+                                }}
+                            >
+                                <option value="default">Más recientes</option>
+                                <option value="price-asc">Menor precio</option>
+                                <option value="price-desc">Mayor precio</option>
+                                <option value="name">Nombre A-Z</option>
+                            </select>
+                        </label>
+                    </div>
+                </aside>
+
+                <section>
+                    <div
+                        id="productos"
+                        className="scroll-mt-28 flex flex-wrap justify-center gap-5"
+                    >
+                        {productsLoading ? (
+                            <div className="loading loading-spinner"></div>
+                        ) : error ? (
+                            <p>Error al cargar los productos</p>
+                        ) : filteredProducts.length === 0 ? (
+                            <div className="mx-4 w-full max-w-xl rounded-2xl border border-base-300 bg-base-100 p-10 text-center shadow-sm">
+                                <FiSearch className="mx-auto mb-3 h-9 w-9 text-base-content/30" />
+                                <h2 className="text-lg font-bold">
+                                    No encontramos productos
+                                </h2>
+                                <p className="mt-1 text-base-content/60">
+                                    Probá cambiando o limpiando los filtros.
+                                </p>
+                                <button
+                                    type="button"
+                                    onClick={clearFilters}
+                                    className="btn btn-outline btn-sm mt-5"
+                                >
+                                    Ver todos los productos
+                                </button>
+                            </div>
+                        ) : (
+                            visibleProducts.map((product) => (
+                                <CardProduct
+                                    key={product._id}
+                                    product={product}
+                                />
+                            ))
+                        )}
+                    </div>
+
+                    {!productsLoading && !error && totalPages > 1 && (
                 <nav
                     className="my-10 flex flex-wrap items-center justify-center gap-2 px-4"
                     aria-label="Paginación de productos"
@@ -168,7 +332,9 @@ const Home = () => {
                         <FiChevronRight aria-hidden="true" />
                     </button>
                 </nav>
-            )}
+                    )}
+                </section>
+            </div>
         </div>
     )
 }
