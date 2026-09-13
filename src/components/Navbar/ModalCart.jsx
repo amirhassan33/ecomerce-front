@@ -145,19 +145,19 @@ const ModalCart = () => {
                             <button
                                 onClick={() => setShowClearConfirmation(true)}
                                 disabled={loading}
-                                className="btn btn-error"
+                                className="btn btn-error m-0 w-full lg:w-auto"
                             >
                                 Vaciar carrito
                             </button>
                             <Link
-                                className="btn btn-info"
+                                className="btn btn-info m-0 w-full lg:w-auto"
                                 onClick={closeModal}
                                 to="/"
                             >
                                 Seguir comprando
                             </Link>
                             <Link
-                                className="btn btn-primary"
+                                className="btn btn-primary m-0 w-full lg:w-auto"
                                 to={userInfo?.id ? '/checkout' : '/login'}
                                 state={
                                     userInfo?.id
