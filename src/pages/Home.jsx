@@ -3,7 +3,7 @@ import { FiChevronLeft, FiChevronRight, FiSearch, FiX } from 'react-icons/fi'
 import CardProduct from '../components/cardProduct/cardProduct'
 import { useProduct } from '../context/ProductContext'
 
-const PRODUCTS_PER_PAGE = 10
+const PRODUCTS_PER_PAGE = 9
 
 const Home = () => {
     const { products, productsLoading, error } = useProduct()
