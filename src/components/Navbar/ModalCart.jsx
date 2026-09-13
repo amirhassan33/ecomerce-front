@@ -3,10 +3,11 @@ import { CgTrash } from 'react-icons/cg'
 import { FaMinus, FaPlus } from 'react-icons/fa'
 import { useCart } from '../../context/CartContext'
 import { useUser } from '../../context/UserContext'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 const ModalCart = () => {
+    const navigate = useNavigate()
     const [showClearConfirmation, setShowClearConfirmation] = useState(false)
     const { userInfo } = useUser()
     const {
@@ -141,29 +142,30 @@ const ModalCart = () => {
                                 <span>${total}</span>
                             </div>
                         </div>
-                        <div className="modal-action mt-4 gap-2 flex flex-col lg:flex-row lg:justify-between">
+                        <div className="mt-4 grid grid-cols-1 gap-3 lg:grid-cols-3">
                             <button
                                 onClick={() => setShowClearConfirmation(true)}
                                 disabled={loading}
-                                className="btn btn-error m-0 w-full lg:w-auto"
+                                className="btn btn-error w-full"
+                                style={{ margin: 0 }}
                             >
                                 Vaciar carrito
                             </button>
-                            <Link
-                                className="btn btn-info m-0 w-full lg:w-auto"
-                                onClick={closeModal}
-                                to="/"
+                            <button
+                                type="button"
+                                className="btn btn-info w-full"
+                                style={{ margin: 0 }}
+                                onClick={() => {
+                                    closeModal()
+                                    navigate('/')
+                                }}
                             >
                                 Seguir comprando
-                            </Link>
-                            <Link
-                                className="btn btn-primary m-0 w-full lg:w-auto"
-                                to={userInfo?.id ? '/checkout' : '/login'}
-                                state={
-                                    userInfo?.id
-                                        ? undefined
-                                        : { from: '/checkout' }
-                                }
+                            </button>
+                            <button
+                                type="button"
+                                className="btn btn-primary w-full"
+                                style={{ margin: 0 }}
                                 onClick={() => {
                                     closeModal()
                                     if (!userInfo?.id) {
@@ -172,12 +174,20 @@ const ModalCart = () => {
                                             { icon: '🔐' },
                                         )
                                     }
+                                    navigate(
+                                        userInfo?.id ? '/checkout' : '/login',
+                                        {
+                                            state: userInfo?.id
+                                                ? undefined
+                                                : { from: '/checkout' },
+                                        },
+                                    )
                                 }}
                             >
                                 {userInfo?.id
                                     ? 'Proceder al pago'
                                     : 'Iniciar sesión para pagar'}
-                            </Link>
+                            </button>
                         </div>
                     </>
                 )}
