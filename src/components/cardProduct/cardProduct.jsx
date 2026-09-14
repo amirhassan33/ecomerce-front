@@ -18,7 +18,7 @@ const CardProduct = ({
                 <img
                     className="aspect-[9/9] object-cover"
                     src={imageUrl}
-                    alt="Tazas"
+                    alt={name}
                 />
             </figure>
             <div className="card-body">
