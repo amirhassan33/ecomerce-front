@@ -146,10 +146,10 @@ export const CartContextProvider = ({ children }) => {
                     currentCart[existingIndex].quantity += quantity
                 } else {
                     currentCart.push({ ...product, quantity })
-                    setCart(currentCart)
-                    saveLocalCart(currentCart)
-                    toast.success('Producto agregado al carrito')
                 }
+                setCart(currentCart)
+                saveLocalCart(currentCart)
+                toast.success('Producto agregado al carrito')
             } catch (error) {
                 console.error('Error al agregar al carrito loal:', error)
                 toast.error('Error al agregar producto al carrito')

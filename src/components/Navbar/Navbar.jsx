@@ -11,6 +11,7 @@ import { useUser } from '../../context/UserContext'
 import AuthButtons from './AuthButtons'
 import Cart from './Cart'
 import UserDropDown from './UserDropDown'
+import { storeConfig } from '../../config/storeConfig'
 
 const WEBSITE_URL = 'https://desarrollowebamir.com.ar'
 
@@ -33,7 +34,7 @@ const Navbar = () => {
 
     return (
         <header className="relative z-40 py-3">
-            <nav className="navbar min-h-16 rounded-2xl border border-white/20 bg-gradient-to-r from-violet-700 via-indigo-600 to-pink-500 px-2 shadow-lg shadow-indigo-950/15 sm:px-4 lg:px-5">
+            <nav className="navbar min-h-16 rounded-2xl border border-white/20 bg-gradient-to-r from-amber-800 via-rose-700 to-stone-800 px-2 shadow-lg shadow-indigo-950/15 sm:px-4 lg:px-5">
                 <div className="navbar-start min-w-0 gap-1 sm:gap-2">
                     <div className="dropdown lg:hidden">
                         <div
@@ -69,8 +70,7 @@ const Navbar = () => {
                         href={`${WEBSITE_URL}/`}
                         className="min-w-0 whitespace-nowrap text-base font-extrabold tracking-tight text-white sm:text-xl"
                     >
-                        <span className="sm:hidden">Amir &amp; Cris</span>
-                        <span className="hidden sm:inline">Servicios Amir y Cris</span>
+                        <span>{storeConfig.name}</span>
                     </a>
                 </div>
 
@@ -86,7 +86,7 @@ const Navbar = () => {
                         <li>
                             <Link
                                 to="/"
-                                className="bg-white font-bold text-indigo-700 shadow-sm hover:bg-white/90"
+                                className="bg-white font-bold text-stone-800 shadow-sm hover:bg-white/90"
                             >
                                 Tienda
                             </Link>

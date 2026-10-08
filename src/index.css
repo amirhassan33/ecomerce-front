@@ -18,7 +18,7 @@
     overflow: hidden;
     background:
         radial-gradient(circle at 12% 15%, rgb(255 255 255 / 12%), transparent 28%),
-        linear-gradient(135deg, #5b21b6 0%, #4f46e5 52%, #db2777 100%);
+        linear-gradient(135deg, #78350f 0%, #9f1239 52%, #292524 100%);
     color: white;
 }
 

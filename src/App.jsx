@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router'
+import { Routes, Route, useLocation } from 'react-router'
 import Layout from './layout/Layout'
 import Home from './pages/Home'
 import Register from './pages/Register'
@@ -18,11 +18,24 @@ import MyOrders from './pages/MyOrders'
 import AuthRoute from './components/ProtectedRoute/AuthRoute'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
+import { useEffect } from 'react'
+
+function ScrollToTop() {
+    const { pathname } = useLocation()
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    }, [pathname])
+
+    return null
+}
+
 function App() {
     return (
         <UserContextProvider>
             <ProductContextProvider>
                 <CartContextProvider>
+                    <ScrollToTop />
                     <Routes>
                         <Route element={<Layout />}>
                             <Route path="/" element={<Home />} />
