@@ -1,11 +1,28 @@
+import { useEffect, useRef } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { FaCheckCircle, FaRegClock, FaShoppingBag, FaReceipt } from 'react-icons/fa'
+import { useCart } from '../context/CartContext'
+import { useUser } from '../context/UserContext'
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams()
   const paymentId = searchParams.get('payment_id')
   const merchantOrder = searchParams.get('merchant_order_id')
   const reportedStatus = searchParams.get('status')
+  const { clearCart } = useCart()
+  const { loading: userLoading } = useUser()
+  const cartCleared = useRef(false)
+
+  // Al volver aprobado desde Mercado Pago se vacía el carrito.
+  // Es solo una comodidad visual: el stock y el estado del pedido los
+  // confirma el backend por webhook (que también limpia el carrito).
+  useEffect(() => {
+    if (userLoading || cartCleared.current) return
+    if (reportedStatus !== 'approved') return
+    cartCleared.current = true
+    clearCart()
+    sessionStorage.removeItem('checkoutCart')
+  }, [userLoading, reportedStatus, clearCart])
 
   // Los parámetros de la URL son informativos: no prueban que el pago esté acreditado.
   // La confirmación definitiva debe venir del backend, consultando a Mercado Pago.
