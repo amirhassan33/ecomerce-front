@@ -28,7 +28,13 @@ export const loginService = async (data, reset, setRedirect, setUserInfo) => {
                 message: 'Inicio de sesion exitoso',
             }
         }
-    } catch {
+    } catch (error) {
+        console.error('Error de inicio de sesión:', {
+            status: error.response?.status,
+            message: error.response?.data?.message,
+            networkError: error.message,
+        })
+
         return {
             succes: false,
             message: 'Error al loguearse',

@@ -10,6 +10,14 @@ const statusLabels = {
     in_process: 'En proceso',
 }
 
+const statusClasses = {
+    pending: 'badge-warning',
+    approved: 'badge-success',
+    rejected: 'badge-error',
+    cancelled: 'badge-neutral',
+    in_process: 'badge-info',
+}
+
 const MyOrders = () => {
     const [orders, setOrders] = useState([])
     const [loading, setLoading] = useState(true)
@@ -77,9 +85,8 @@ const MyOrders = () => {
                             </div>
                             <span
                                 className={`badge ${
-                                    order.status === 'approved'
-                                        ? 'badge-success'
-                                        : 'badge-warning'
+                                    statusClasses[order.status] ||
+                                    'badge-neutral'
                                 }`}
                             >
                                 {statusLabels[order.status] || order.status}
