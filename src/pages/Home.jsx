@@ -1,3 +1,4 @@
+import HeroCarousel from '../components/HeroCarousel/HeroCarousel'
 import { useState } from 'react'
 import {
     FiCheck,
@@ -113,39 +114,7 @@ const Home = () => {
 
     return (
         <div className="pb-8">
-            <section className="relative mb-10 overflow-hidden rounded-[2rem] bg-gradient-to-br from-amber-950 via-rose-950 to-stone-900 px-6 py-14 text-white shadow-xl sm:px-10 lg:px-14 lg:py-20">
-                <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-amber-400/15 blur-3xl" />
-                <div className="absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-rose-400/15 blur-3xl" />
-
-                <div className="relative max-w-3xl">
-                    <span className="mb-5 inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-white/90 backdrop-blur">
-                        {storeConfig.name} · {storeConfig.category}
-                    </span>
-                    <h1 className="text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-                        {storeConfig.heroTitle}
-                        <span className="block text-amber-200">{storeConfig.tagline}</span>
-                    </h1>
-                    <p className="mt-5 max-w-2xl text-base leading-7 text-white/80 sm:text-lg">
-                        {storeConfig.heroText}
-                    </p>
-                    <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                        <button
-                            type="button"
-                            onClick={scrollToProducts}
-                            className="btn border-0 bg-white px-7 text-stone-900 shadow-lg hover:bg-white/90"
-                        >
-                            Ver productos
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => document.getElementById('beneficios')?.scrollIntoView({ behavior: 'smooth' })}
-                            className="btn btn-outline border-white/40 bg-white/5 px-7 text-white hover:border-white hover:bg-white/10 hover:text-white"
-                        >
-                            ¿Por qué elegirnos?
-                        </button>
-                    </div>
-                </div>
-            </section>
+            <HeroCarousel products={products} onViewProducts={scrollToProducts} />
 
             <section id="beneficios" className="mb-12 grid gap-4 sm:grid-cols-3">
                 <div className="flex items-start gap-4 rounded-2xl border border-base-300 bg-base-100 p-5 shadow-sm">

@@ -1,0 +1,49 @@
+.lumina-hero{--ink:#44392f;--accent:#8c593c;--paper:#f5eee3;position:relative;overflow:hidden;margin-bottom:2.5rem;border:1px solid #e8dece;border-radius:26px;background:var(--paper);color:var(--ink);isolation:isolate;transition:background .5s ease}
+.lumina-hero--olive{--paper:#edf0e5;--ink:#344333;--accent:#576947}
+.lumina-hero--rose{--paper:#f5e9e5;--ink:#553b39;--accent:#945f56}
+.lumina-hero__top{display:flex;justify-content:space-between;gap:1rem;padding:22px 40px;border-bottom:1px solid #44392f14;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.lumina-hero__top span span{padding:0 10px;opacity:.35}
+.lumina-hero__edition{opacity:.65}
+.lumina-hero__body{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:32px;padding:42px 56px 34px;touch-action:pan-y}
+.lumina-hero__copy{min-width:0}
+.lumina-hero__eyebrow{display:flex;align-items:center;gap:9px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.17em;color:var(--accent)}
+.lumina-hero__eyebrow>span{width:6px;height:6px;border-radius:50%;background:currentColor}
+.lumina-hero h1{min-height:2.3em;margin:22px 0;font-family:Georgia,'Times New Roman',serif;font-size:clamp(38px,4.8vw,66px);font-weight:400;line-height:1.08;letter-spacing:-.055em}
+.lumina-hero h1 em{display:block;color:var(--accent);font-weight:400}
+.lumina-hero__description{max-width:370px;min-height:5.25em;font-size:15px;line-height:1.75;color:var(--ink);opacity:.8}
+.lumina-hero__cta{display:inline-flex;align-items:center;justify-content:space-between;gap:25px;min-height:52px;margin-top:24px;padding:14px 21px;border:1px solid var(--ink);border-radius:5px;background:var(--ink);color:#fffaf3;font-size:13px;font-weight:600;transition:transform .2s,box-shadow .2s}
+.lumina-hero__cta:hover{transform:translateY(-2px);box-shadow:0 8px 20px #44392f20}
+.lumina-hero__cta svg{width:19px;height:19px}
+.lumina-hero__note{margin-top:17px;font-family:Georgia,serif;font-size:13px;font-style:italic;opacity:.7}
+.lumina-hero__visual{position:relative;min-width:0;padding:24px 0 0}
+.lumina-hero__orbit{position:absolute;inset:0 4% 12%;border:1px solid #9b77552b;border-radius:48% 48% 44% 44%;transform:rotate(-12deg);z-index:-1}
+.lumina-hero__visual-label{position:absolute;right:0;top:0;font-family:Georgia,serif;font-size:12px;font-style:italic;opacity:.7;transform:rotate(6deg)}
+.lumina-hero__stage{display:grid;place-items:center;aspect-ratio:1.12;width:100%;overflow:hidden;border-radius:46% 46% 12px 12px;background:radial-gradient(ellipse at 50% 30%,#ffffffb3,#ffffff26 65%),linear-gradient(150deg,#e6d9c733,#bd9b6c24)}
+.lumina-hero__stage img{width:100%;height:100%;min-height:0;object-fit:contain;padding:26px;animation:lumina-reveal .55s ease both}
+.lumina-hero__candle{width:90%;height:90%;max-height:360px}
+.lumina-hero__product{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;margin:-16px 20px 0;padding:16px 20px;border:1px solid #fff9;border-radius:8px;background:#fffcf4f2;color:var(--ink);text-decoration:none;box-shadow:0 10px 30px #5032210c}
+.lumina-hero__product:hover{background:#fff}
+.lumina-hero__product small{display:block;margin-bottom:4px;font-size:9px;text-transform:uppercase;letter-spacing:.12em;opacity:.65}
+.lumina-hero__product strong{display:-webkit-box;overflow:hidden;-webkit-line-clamp:2;-webkit-box-orient:vertical;font-size:14px;font-weight:500}
+.lumina-hero__product svg{flex-shrink:0;width:20px;height:20px}
+.lumina-hero__signature{display:flex;align-items:center;flex-direction:column;padding:8px 0;gap:3px}
+.lumina-hero__signature>span{font-family:Georgia,serif;font-size:21px}
+.lumina-hero__signature small{font-size:10px;letter-spacing:.07em;opacity:.7}
+.lumina-hero__bottom{display:flex;align-items:center;gap:18px;padding:16px 40px;border-top:1px solid #44392f14}
+.lumina-hero__pagination{display:flex;align-items:center;gap:0}
+.lumina-hero__pagination button{display:grid;place-items:center;width:40px;height:44px;border-radius:5px}
+.lumina-hero__pagination button>span{display:block;width:18px;height:3px;border-radius:4px;background:var(--ink);opacity:.23;transition:width .3s,opacity .3s}
+.lumina-hero__pagination button>span.is-active{width:30px;opacity:1;background:var(--accent)}
+.lumina-hero__count{font-size:12px;font-variant-numeric:tabular-nums;letter-spacing:.08em}
+.lumina-hero__count span{opacity:.4}
+.lumina-hero__controls{display:flex;gap:8px;margin-left:auto}
+.lumina-hero__controls button{display:grid;place-items:center;width:44px;height:44px;border:1px solid #44392f30;border-radius:50%;background:transparent;transition:background .2s}
+.lumina-hero__controls button:hover{background:#ffffff80}
+.lumina-hero__controls svg{width:17px;height:17px}
+.lumina-hero button:focus-visible,.lumina-hero a:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.lumina-hero__entrance{animation:lumina-reveal .5s ease both}
+@keyframes lumina-reveal{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:1100px){.lumina-hero__body{min-height:500px}.lumina-hero__visual{max-width:430px;width:100%;justify-self:end}}
+@media(max-width:900px){.lumina-hero__body{padding:32px;gap:22px}.lumina-hero__top,.lumina-hero__bottom{padding-left:26px;padding-right:26px}.lumina-hero h1{font-size:44px}.lumina-hero__description{min-height:7em}}
+@media(max-width:640px){.lumina-hero{border-radius:20px}.lumina-hero__top{padding:18px 22px;font-size:9px}.lumina-hero__edition{display:none}.lumina-hero__body{grid-template-columns:1fr;padding:28px 24px 20px;gap:22px}.lumina-hero h1{font-size:clamp(36px,9.2vw,52px);margin:18px 0;min-height:2.2em}.lumina-hero__description{font-size:14px;min-height:5.25em;max-width:none}.lumina-hero__cta{width:100%;margin-top:20px}.lumina-hero__note{font-size:12px}.lumina-hero__visual{width:100%;max-width:360px;margin:auto;padding-top:14px}.lumina-hero__stage{aspect-ratio:1.65;border-radius:110px 110px 8px 8px}.lumina-hero__stage img{padding:14px;height:210px}.lumina-hero__candle{height:210px}.lumina-hero__visual-label{font-size:10px;right:4px}.lumina-hero__product{margin:-10px 12px 0;padding:12px 16px}.lumina-hero__bottom{padding:12px 18px;gap:8px}.lumina-hero__pagination button{width:32px}.lumina-hero__pagination button>span{width:14px}.lumina-hero__pagination button>span.is-active{width:24px}.lumina-hero__controls{gap:5px}.lumina-hero__count{font-size:10px}.lumina-hero__controls button{width:44px;height:44px}}
+@media(prefers-reduced-motion:reduce){.lumina-hero,.lumina-hero *{animation:none!important;transition:none!important}.lumina-hero__cta:hover{transform:none}}
