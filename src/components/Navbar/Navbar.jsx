@@ -1,11 +1,5 @@
 import { Link } from 'react-router-dom'
-import {
-    FiHome,
-    FiMail,
-    FiMenu,
-    FiShoppingBag,
-    FiUsers,
-} from 'react-icons/fi'
+import { FiHome, FiMail, FiUsers, FiMenu, FiShoppingBag } from 'react-icons/fi'
 import { FaGaugeHigh } from 'react-icons/fa6'
 import { useUser } from '../../context/UserContext'
 import AuthButtons from './AuthButtons'
@@ -13,24 +7,20 @@ import Cart from './Cart'
 import UserDropDown from './UserDropDown'
 import { storeConfig } from '../../config/storeConfig'
 
-const WEBSITE_URL = 'https://desarrollowebamir.com.ar'
-
-const websiteLinks = [
-    { label: 'Inicio', href: `${WEBSITE_URL}/`, icon: FiHome },
-    {
-        label: 'Nosotros',
-        href: `${WEBSITE_URL}/pages/nosotros.html`,
-        icon: FiUsers,
-    },
-    {
-        label: 'Contacto',
-        href: `${WEBSITE_URL}/pages/contacto.html`,
-        icon: FiMail,
-    },
-]
-
 const Navbar = () => {
     const { loading, userInfo } = useUser()
+    const goToStart = (event) => {
+        if (
+            event.button !== 0 ||
+            event.metaKey ||
+            event.ctrlKey ||
+            event.shiftKey ||
+            event.altKey
+        )
+            return
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+        event.currentTarget.blur()
+    }
 
     return (
         <header className="relative z-40 py-3">
@@ -49,16 +39,41 @@ const Navbar = () => {
                             tabIndex={0}
                             className="menu dropdown-content z-50 mt-3 w-64 max-w-[calc(100vw-2rem)] rounded-2xl border border-base-300 bg-base-100 p-2 text-base-content shadow-xl"
                         >
-                            {websiteLinks.map(({ label, href, icon: Icon }) => (
-                                <li key={label}>
-                                    <a href={href} className="gap-3 py-3">
-                                        <Icon />
-                                        {label}
-                                    </a>
-                                </li>
-                            ))}
                             <li>
-                                <Link to="/" className="gap-3 py-3 font-semibold text-primary">
+                                <Link
+                                    to="/"
+                                    onClick={goToStart}
+                                    className="gap-3 py-3"
+                                >
+                                    <FiHome />
+                                    Inicio
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/"
+                                    onClick={goToStart}
+                                    className="gap-3 py-3"
+                                >
+                                    <FiUsers />
+                                    Nosotros
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/"
+                                    onClick={goToStart}
+                                    className="gap-3 py-3"
+                                >
+                                    <FiMail />
+                                    Contacto
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/"
+                                    className="gap-3 py-3 font-semibold text-primary"
+                                >
                                     <FiShoppingBag />
                                     Tienda
                                 </Link>
@@ -66,23 +81,44 @@ const Navbar = () => {
                         </ul>
                     </div>
 
-                    <a
-                        href={`${WEBSITE_URL}/`}
+                    <Link
+                        to="/"
+                        onClick={goToStart}
                         className="min-w-0 whitespace-nowrap text-base font-extrabold tracking-tight text-white sm:text-xl"
                     >
                         <span>{storeConfig.name}</span>
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal items-center gap-1 px-1">
-                        {websiteLinks.map(({ label, href }) => (
-                            <li key={label}>
-                                <a href={href} className="text-white hover:bg-white/15">
-                                    {label}
-                                </a>
-                            </li>
-                        ))}
+                        <li>
+                            <Link
+                                to="/"
+                                onClick={goToStart}
+                                className="text-white hover:bg-white/15"
+                            >
+                                Inicio
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/"
+                                onClick={goToStart}
+                                className="text-white hover:bg-white/15"
+                            >
+                                Nosotros
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/"
+                                onClick={goToStart}
+                                className="text-white hover:bg-white/15"
+                            >
+                                Contacto
+                            </Link>
+                        </li>
                         <li>
                             <Link
                                 to="/"
@@ -103,7 +139,9 @@ const Navbar = () => {
                             aria-label="Ir al panel de administración"
                         >
                             <FaGaugeHigh className="text-base" />
-                            <span className="hidden xl:inline">Administración</span>
+                            <span className="hidden xl:inline">
+                                Administración
+                            </span>
                         </Link>
                     )}
                     <Cart />
