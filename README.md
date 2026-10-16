@@ -95,6 +95,12 @@ En `BACK/.env`, configurar las variables utilizadas por los servicios. La siguie
 
 Las variables con prefijo `VITE_` se incorporan al código del navegador. Las credenciales de servicios corresponden al backend. Los archivos `.env` no forman parte de esta documentación.
 
+En `BACK/.env.example` y `FRONT/.env.example` hay una plantilla con los nombres de todas las variables.
+
+### Base de datos de pruebas
+
+La aplicación usa la base `ecomerceDB`. Las pruebas automáticas que se conectan a MongoDB (`npm test`) solo se ejecutan si `MONGO_DB_NAME` vale `ecomerceDB_test`; con cualquier otro valor se detienen para no modificar datos reales. Para correrlas, cambiar temporalmente `MONGO_DB_NAME` a `ecomerceDB_test` y volver a `ecomerceDB` al terminar.
+
 ### Iniciar el backend
 
 Desde la carpeta principal, abrir una terminal:

@@ -22,9 +22,11 @@ export const getMyOrders = async () => {
     }
 }
 
-export const getAllOrders = async () => {
+export const getAllOrders = async ({ page = 1, limit = 10 } = {}) => {
     try {
-        const response = await axios.get(`${API_URL}/admin/all`)
+        const response = await axios.get(`${API_URL}/admin/all`, {
+            params: { page, limit },
+        })
         return response.data
     } catch (error) {
         throw new Error('Error al obtener los pedidos', { cause: error })

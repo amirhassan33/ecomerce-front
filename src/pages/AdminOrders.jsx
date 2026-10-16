@@ -19,14 +19,23 @@ const statusClasses = {
 
 const AdminOrders = () => {
     const [orders, setOrders] = useState([])
+    const [page, setPage] = useState(1)
+    const [pagination, setPagination] = useState({ total: 0, totalPages: 1 })
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
 
     useEffect(() => {
         const loadOrders = async () => {
+            setLoading(true)
+            setError('')
+
             try {
-                const response = await getAllOrders()
+                const response = await getAllOrders({ page })
                 setOrders(response.orders || [])
+                setPagination({
+                    total: response.pagination?.total ?? 0,
+                    totalPages: response.pagination?.totalPages ?? 1,
+                })
             } catch {
                 setError('No se pudieron cargar los pedidos.')
             } finally {
@@ -35,7 +44,7 @@ const AdminOrders = () => {
         }
 
         loadOrders()
-    }, [])
+    }, [page])
 
     if (loading) {
         return (
@@ -51,6 +60,7 @@ const AdminOrders = () => {
                 <h1 className="text-3xl font-bold">Pedidos</h1>
                 <p className="text-base-content/60 mt-1">
                     Compras y datos de envío de tus clientes
+                    {pagination.total > 0 && ` · ${pagination.total} en total`}
                 </p>
             </div>
 
@@ -155,6 +165,31 @@ const AdminOrders = () => {
                     )
                 })}
             </div>
+
+            {pagination.totalPages > 1 && (
+                <nav
+                    className="flex justify-center items-center gap-4 mt-8"
+                    aria-label="Paginación de pedidos"
+                >
+                    <button
+                        className="btn btn-sm"
+                        onClick={() => setPage((current) => current - 1)}
+                        disabled={page <= 1}
+                    >
+                        Anterior
+                    </button>
+                    <span className="text-sm">
+                        Página {page} de {pagination.totalPages}
+                    </span>
+                    <button
+                        className="btn btn-sm"
+                        onClick={() => setPage((current) => current + 1)}
+                        disabled={page >= pagination.totalPages}
+                    >
+                        Siguiente
+                    </button>
+                </nav>
+            )}
         </main>
     )
 }
