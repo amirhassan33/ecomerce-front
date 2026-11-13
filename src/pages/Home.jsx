@@ -306,9 +306,35 @@ const Home = () => {
                     </aside>
 
                     <div>
-                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                        <div
+                            className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
+                            aria-busy={productsLoading}
+                        >
                             {productsLoading ? (
-                                <div className="loading loading-spinner" />
+                                <>
+                                    <span className="sr-only" role="status">
+                                        Cargando productos…
+                                    </span>
+                                    {Array.from({ length: 6 }, (_, index) => (
+                                        <article
+                                            key={`product-skeleton-${index}`}
+                                            aria-hidden="true"
+                                            className="card h-full w-full overflow-hidden border border-base-200 bg-base-100 shadow-sm"
+                                        >
+                                            <div className="skeleton aspect-square rounded-none" />
+                                            <div className="card-body gap-3 p-5">
+                                                <div className="skeleton h-6 w-3/4" />
+                                                <div className="skeleton h-6 w-1/3" />
+                                                <div className="skeleton h-4 w-full" />
+                                                <div className="skeleton h-4 w-5/6" />
+                                                <div className="mt-5 grid grid-cols-2 gap-2">
+                                                    <div className="skeleton h-10" />
+                                                    <div className="skeleton h-10" />
+                                                </div>
+                                            </div>
+                                        </article>
+                                    ))}
+                                </>
                             ) : error ? (
                                 <div className="rounded-2xl border border-error/20 bg-error/5 p-8 text-center">
                                     <h2 className="font-bold">No pudimos cargar los productos</h2>
